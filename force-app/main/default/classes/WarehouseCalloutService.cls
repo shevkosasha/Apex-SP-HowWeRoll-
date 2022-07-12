@@ -3,11 +3,12 @@ public with sharing class WarehouseCalloutService implements Queueable{
     private static final String WAREHOUSE_URL = 'https://th-superbadge-apex.herokuapp.com/equipment';
     
     public void execute(QueueableContext context) {
-        getWareHouseEquips();
+        syncWareHouseEquips();
     }
 
     @Future(Callout=true)
-    private static void getWareHouseEquips() {
+    @TestVisible
+    private static void syncWareHouseEquips() {
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint(WAREHOUSE_URL);
